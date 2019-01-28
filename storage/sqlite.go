@@ -59,6 +59,16 @@ func NewSQLite3Storage(opts *SQLite3Options) *SQLite3Storage {
 	return sqlite3Storage
 }
 
+// NewSQLite3StorageForDB returns a SQLite3Storage backed by the supplied *sql.DB.
+func NewSQLite3StorageForDB(openDB *sql.DB) *SQLite3Storage {
+	sqlite3Storage := &SQLite3Storage{
+		db: openDB,
+		firstTableName: "",
+	}
+
+	return sqlite3Storage
+}
+
 func (sqlite3Storage *SQLite3Storage) open() {
 	db, err := sql.Open("sqlite3_textql", ":memory:")
 
